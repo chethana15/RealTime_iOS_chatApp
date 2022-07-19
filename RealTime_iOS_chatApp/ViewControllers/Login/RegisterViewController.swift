@@ -101,6 +101,7 @@ class RegisterViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         
+
         //add targets
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
