@@ -97,11 +97,15 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped(){
+        
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
         guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty , password.count >= 6 else{
             validateFileds()
             return
         }
-        //firebase
+        //firebase login
         
     }
     private func validateFileds(){
