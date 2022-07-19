@@ -20,8 +20,8 @@ class RegisterViewController: UIViewController {
         let profileImage = UIImageView()
         profileImage.image = UIImage(systemName: "person.fill")
         profileImage.tintColor = .systemGray
-        profileImage.layer.cornerRadius = profileImage.height/2
-        profileImage.layer.borderWidth = 5
+//        profileImage.layer.cornerRadius = profileImage.height/2
+        profileImage.layer.borderWidth = 2
         profileImage.layer.borderColor = UIColor.systemGray.cgColor
         profileImage.clipsToBounds = true
         profileImage.contentMode = .scaleAspectFit
@@ -161,6 +161,7 @@ class RegisterViewController: UIViewController {
     
     @objc private func tappedProfileImage(){
         print("Heyy..you tapped profile pic")
+        profilePicActionSheet()
     }
     
     private func validateFields(){
@@ -188,4 +189,53 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         return true
     }
+}
+
+extension RegisterViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func profilePicActionSheet(){
+        
+        let actionsheet = UIAlertController(title: "Profile Picture", message: "How would you like to choose profile picture?", preferredStyle: .actionSheet)
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        actionsheet.addAction(UIAlertAction(title: "Take picture", style: .default, handler: { [weak self] _ in
+            self?.takePicture()
+        }))
+        actionsheet.addAction(UIAlertAction(title: "Choose picture", style: .default, handler: { [weak self] _ in
+            self?.choosePicture()
+        }))
+        
+        present(actionsheet, animated: true, completion: nil)
+        
+    }
+    
+    func takePicture(){
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.sourceType = .camera
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func choosePicture(){
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{
+            return
+        }
+        self.profileImage.image = selectedImage
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
