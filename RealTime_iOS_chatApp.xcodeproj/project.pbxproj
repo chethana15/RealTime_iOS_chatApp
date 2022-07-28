@@ -22,6 +22,7 @@
 		6982C80428805C1D00BB70BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6982C80228805C1D00BB70BF /* LaunchScreen.storyboard */; };
 		69C324BF2887DC59001A3CDF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69C324BE2887DC59001A3CDF /* GoogleService-Info.plist */; };
 		69D473A928867A150021EEC6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D473A828867A150021EEC6 /* Extensions.swift */; };
+		69EAFA6228915C40003E6AFF /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EAFA6128915C40003E6AFF /* DatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		6982C80528805C1D00BB70BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69C324BE2887DC59001A3CDF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69D473A828867A150021EEC6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		69EAFA6128915C40003E6AFF /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		D8C0612119BA844DDF749FF4 /* Pods_RealTime_iOS_chatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTime_iOS_chatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 				6982C7F728805C1700BB70BF /* AppDelegate.swift */,
 				6982C7F928805C1700BB70BF /* SceneDelegate.swift */,
 				69D473A828867A150021EEC6 /* Extensions.swift */,
+				69EAFA6128915C40003E6AFF /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				692363392885B061006ABE05 /* NewConversationViewController.swift in Sources */,
+				69EAFA6228915C40003E6AFF /* DatabaseManager.swift in Sources */,
 				692363352885B03C006ABE05 /* LoginViewController.swift in Sources */,
 				6923633D2885B080006ABE05 /* VideoViewerViewController.swift in Sources */,
 				692363372885B04E006ABE05 /* RegisterViewController.swift in Sources */,

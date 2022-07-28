@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ConverstaionsViewController: UIViewController {
 
@@ -14,16 +15,23 @@ class ConverstaionsViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .cyan
         
+//        DatabaseManager.shared.test()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        //create a value for log_in
-        let logIn = UserDefaults.standard.bool(forKey: "Log_in")
+//        create a value for log_in
+//        let logIn = UserDefaults.standard.bool(forKey: "Log_in")
+        validateLogin()
         
+        
+    }
+
+    private func validateLogin(){
         //if user is not logged in then direct them to login vc
-        if !logIn {
+        if FirebaseAuth.Auth.auth().currentUser == nil {
             let vc = LoginViewController()
             let nav = UINavigationController.init(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen

@@ -28,7 +28,8 @@ class LoginViewController: UIViewController {
         emailTextField.autocorrectionType = .no
         emailTextField.autocapitalizationType = .none
         emailTextField.returnKeyType = .continue
-        emailTextField.leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 5, height: 0))//this helps to butter the overlapping of textfiled and placeholder
+        emailTextField.leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        //this helps to butter the overlapping of textfiled and placeholder
         emailTextField.leftViewMode = .always //this is must if u used leftview else it doesn't show buffer
         emailTextField.placeholder = "Enter email"
         emailTextField.layer.cornerRadius = 10
@@ -108,8 +109,11 @@ class LoginViewController: UIViewController {
         }
         //firebase login
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self]authResult, error in
             
+            guard let strongSelf = self else{
+                return
+            }
             guard let result = authResult, error == nil else{
                 print("Failed to login with email: \(email)")
                 return
@@ -117,6 +121,7 @@ class LoginViewController: UIViewController {
             
             let user = result.user
             print("\(user) was able to login successfully")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             
         }
         

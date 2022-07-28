@@ -19,7 +19,7 @@ class RegisterViewController: UIViewController {
     
     let profileImage : UIImageView = {
         let profileImage = UIImageView()
-        profileImage.image = UIImage(systemName: "person.fill")
+        profileImage.image = UIImage(systemName: "person.circle")
         profileImage.tintColor = .systemGray
 //        profileImage.layer.cornerRadius = profileImage.height/2
         profileImage.layer.borderWidth = 2
@@ -157,15 +157,30 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        //firebase register
+        DatabaseManager.shared.userExists(with: email) {[weak self] exists in
+            
+            guard let strongSelf = self else{
+                return
+            }
+            guard exists != true else{
+//                user already exists
+                strongSelf.validateFields(errorMessage: "User Already exists")
+                return
+            }
+        }
+//        MARK: - firebase register
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard let result = authResult, error == nil else{
+            
+          
+            guard  authResult != nil, error == nil else{
                 print("Unable to register user with email\(email), error: \(String(describing: error ?? nil))")
                 return
             }
             
-            let user = result.user
-            print("Successfully registered user : \(user) ")
+//            let user = result.user
+//            print("Successfully registered user : \(user) ")
+            DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email, password: password))
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
         
     }
@@ -175,8 +190,8 @@ class RegisterViewController: UIViewController {
         profilePicActionSheet()
     }
     
-    private func validateFields(){
-        let alert = UIAlertController(title: "Register error", message: "Please enter all fields to register.", preferredStyle: .alert)
+    private func validateFields(errorMessage: String = "Please enter all fields to register."){
+        let alert = UIAlertController(title: "Register error", message: errorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
         self.present(alert, animated: true, completion: nil)
     }
